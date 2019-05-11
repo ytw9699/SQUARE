@@ -1,0 +1,74 @@
+@charset "utf-8";
+/* CSS Document */
+
+.contentWrap {
+    width: 75%;
+    min-height: 650px;
+    margin: 0 auto;
+}
+
+span.contentSubject {
+    font-size: 30px;
+    font-weight: 600;
+    float: left;
+}
+
+.contentHeader {
+    width: 100%;
+    height: 90px;
+}
+
+span.contentSum {
+    color: #e9281d;
+    font-size: 20px;
+    float: left;
+    margin-top: 15px;
+    margin-left: 10px;
+}
+
+.contentList {
+    width: 100%;
+    border-top: 5px solid #373f52;
+}
+
+td.listHeader {
+    text-align: center;
+    color: #b4b7b9;
+    background-color: #f2f2f4;
+    padding: 7px;
+    box-sizing: border-box;
+}
+
+span.contentSumText {
+    color: black;
+    font-size: 15px;
+    float: left;
+    margin-top: 20px;
+    margin-left: 5px;
+}
+
+td.content_subject {
+    color: #444444;
+    box-sizing: border-box;
+    padding-left: 5px;
+}
+
+td.content_other {
+    color: #ababab;
+    text-align: center;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.pagingWrap {
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+.contentLink:hover {text-decoration: underline;}
+span.content_commentCounting {
+    color: #e9281d;
+    font-size: 14px;
+    font-weight: 600;
+}

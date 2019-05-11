@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+
+<sqlMap>
+	<typeAlias alias="singo2" type="admin.singoVO"/>
+	<typeAlias alias="board2" type="admin.boardVO"/>
+	<!-- 리스트 맵을 정의한다.  -->
+
+	<resultMap id = "singoRes" class="singo2">
+		<result property ="singo_num" column = "singo_num"/>
+		<result property="board_num" column="board_num"/>
+		<result property="singo_reporter" column="singo_reporter"/>
+		<result property="singo_badman" column="singo_badman"/>
+		<result property="singo_reason" column="singo_reason"/>
+		<result property="singo_regdate" column="singo_regdate"/>
+	</resultMap>
+	
+   <resultMap  id="boardRes" class="board2">
+      <result property="line_num" column="LINE_NUM"/>
+      <result property="board_num" column="BOARD_NUM"/>
+      <result property="board_subject" column="BOARD_SUBJECT"/>
+      <result property="board_author" column="BOARD_AUTHOR"/> 
+      <result property="board_content" column="BOARD_CONTENT"/>
+      <result property="board_regdate" column="BOARD_REGDATE"/>
+      <result property="board_upload" column="BOARD_UPLOAD"/>
+      <result property="board_up" column="BOARD_UP"/>
+      <result property="board_down" column="BOARD_DOWN"/>
+       <result property="board_dot" column="BOARD_DOT"/>
+      <result property="board_singo" column="BOARD_SINGO"/>
+      <result property="board_readcount" column="BOARD_READCOUNT"/>
+      <result property="board_status" column="BOARD_STATUS"/>
+   </resultMap>
+	
+	
+	<sql id="select-all-singo">
+		SELECT * FROM singo
+	</sql>
+	<sql id="select-all-blind">
+		SELECT * FROM board
+	</sql>
+	<sql id="where-board_num-blind">
+		WHERE board_num = #board_num#
+	</sql>
+	
+	<select id="selectOne-singo" resultMap="boardRes" parameterClass="int">
+		<include refid="select-all-blind"/>
+		<include refid="where-board_num-blind"/>
+	</select>
+	
+	<select id="selectAll-singo" resultMap="singoRes" parameterClass="int">
+		<include refid="select-all-singo"/>
+		ORDER BY singo_num DESC
+	</select>
+	
+	<select id="selectStatus" resultClass="int" parameterClass="int">
+		select board_status from board where board_num=#board_num#
+	</select>
+	
+	<select id="selectSearchBad" resultMap="singoRes" parameterClass="string">
+		<include refid="select-all-singo" />
+		 WHERE singo_badman like #searchKeyword#
+		 ORDER BY singo_num DESC
+	</select>
+
+	<select id="selectSearchReason" resultMap="singoRes" parameterClass="string">
+		<include refid="select-all-singo" />
+		 WHERE singo_reason like #searchKeyword#
+		 ORDER BY singo_num DESC
+	</select>
+	
+	<select id="selectSingoArticleLineNumber" resultClass="int" parameterClass="int">
+		select line_num from board where board_num = #board_num#
+	</select>
+	
+	<update id="updateBlindStatus" parameterClass="board2">
+	
+		UPDATE BOARD SET  BOARD_STATUS = 2
+		<include refid="where-board_num-blind"/>
+	</update>
+	
+	<update id="updateBlindStatus2" parameterClass="board2">
+	
+		UPDATE BOARD SET  BOARD_STATUS = 1
+		<include refid="where-board_num-blind"/>
+	</update>
+	
+</sqlMap>

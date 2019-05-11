@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+<sqlMap>
+
+	<typeAlias alias="line2" type="admin.lineVO"/>
+
+	<!-- 리스트 맵을 정의한다.  -->
+
+	<resultMap id = "lineRes" class="line2">
+		<result property ="line_num" column = "line_num"/>
+		<result property="line_subject" column="line_subject"/>
+		<result property="line_regdate" column="line_regdate"/>
+		<result property="line_img" column="line_img"/>
+	</resultMap>
+
+	<sql id="select-all">
+		SELECT * FROM line
+	</sql>
+
+
+
+	<sql id="where-line_num">
+		WHERE line_num = #line_num#
+	</sql>
+
+	<select id="selectAll" resultMap="lineRes" parameterClass="int">
+		<include refid="select-all"/>
+		ORDER BY line_num DESC
+	</select>
+
+	<select id="selectLastLine_num" resultClass="line2" parameterClass="int">
+	SELECT max(line_num) as line_num FROM line
+	</select>
+
+	<select id="selectOne" resultMap="lineRes" parameterClass="int">
+		<include refid="select-all"/>
+		<include refid="where-line_num"/>
+	</select>
+
+	<select id="selectSearchW" resultMap="lineRes" parameterClass="string">
+		<include refid="select-all" />
+		 WHERE line_subject like #searchKeyword#
+		 ORDER BY line_num DESC
+	</select>
+
+	<select id="selectSearchS" resultMap="lineRes" parameterClass="string">
+		<include refid="select-all" />
+		 WHERE line_num like #searchKeyword#
+		 ORDER BY line_num DESC
+	</select>
+
+
+	<insert id="insertLine" parameterClass="line2">
+		INSERT INTO LINE (LINE_NUM, LINE_SUBJECT, LINE_REGDATE,LINE_IMG)
+		VALUES (LINE_NUM_NO_SEQ.NEXTVAL,#line_subject#, #line_regdate#, #line_img#)
+		
+	</insert>
+
+	<update id="updateLine" parameterClass="line2">
+		UPDATE LINE SET  LINE_SUBJECT = #line_subject#
+		<include refid="where-line_num"/>
+	</update>
+
+	<update id="updateFile" parameterClass="line2">
+	UPDATE LINE SET LINE_IMG = #line_img#
+	<include refid="where-line_num"/>
+</update>
+
+
+	<delete id="deleteLine" parameterClass="int">
+		DELETE FROM line 
+		<include refid="where-line_num"/>
+	</delete>
+	<delete id="deleteBoard" parameterClass="int">
+		DELETE FROM board
+		<include refid="where-line_num"/>
+	</delete>
+	<delete id="deleteComment" parameterClass="int">
+		DELETE FROM comments
+		<include refid="where-line_num"/>
+	</delete>
+
+
+
+</sqlMap>

@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+
+<sqlMap>
+	<typeAlias alias="board" type="board.boardVO"/>
+	<typeAlias alias="comment" type="board.commentVO"/>
+	<typeAlias alias="lineVO" type="board.lineVO" />
+	<typeAlias alias="boardUpDown" type="board.boardUpDownVO"/>
+	<typeAlias alias="commentCheck" type="board.commentUpDownDTO"/>
+	<typeAlias alias="singo" type="board.singoVO"/>
+	<typeAlias alias="dot" type="board.dot_historyVO"/>
+	<typeAlias alias="memberVO" type="board.memberVO"/>
+	<typeAlias alias="like_board" type="board.like_boardVO"/>
+	
+	<resultMap class="board" id="boardRes">
+		<result property="line_num" column="LINE_NUM"/>
+		<result property="board_num" column="BOARD_NUM"/>
+		<result property="board_subject" column="BOARD_SUBJECT"/>
+		<result property="board_author" column="BOARD_AUTHOR"/> 
+		<result property="board_content" column="BOARD_CONTENT"/>
+		<result property="board_regdate" column="BOARD_REGDATE"/>
+		<result property="board_upload" column="BOARD_UPLOAD"/>
+		<result property="board_up" column="BOARD_UP"/>
+		<result property="board_down" column="BOARD_DOWN"/>
+	    <result property="board_dot" column="BOARD_DOT"/>
+		<result property="board_singo" column="BOARD_SINGO"/>
+		<result property="board_readcount" column="BOARD_READCOUNT"/>
+		<result property="board_status" column="BOARD_STATUS"/>
+	</resultMap>
+
+	<resultMap class="comment" id="commentRes">
+		<result property="line_num" column="LINE_NUM"/>
+		<result property="board_num" column="BOARD_NUM"/>
+		<result property="comment_num" column="COMMENT_NUM"/>
+		<result property="comment_author" column="COMMENT_AUTHOR"/>
+		<result property="comment_content" column="COMMENT_CONTENT"/>
+		<result property="comment_ref" column="COMMENT_REF"/>
+		<result property="comment_re_level" column="COMMENT_RE_LEVEL"/>
+		<result property="comment_up" column="COMMENT_UP"/>
+		<result property="comment_down" column="COMMENT_DOWN"/>
+		<result property="comment_regdate" column="COMMENT_REGDATE"/>
+		<result property="comment_status" column="COMMENT_STATUS"/>
+	</resultMap>
+	
+	<resultMap class="lineVO" id="lineRes">
+	 <result property="line_num" column="LINE_NUM"/>
+	 <result property="line_subject" column="LINE_SUBJECT"/>
+	 <result property="line_regdate" column="LINE_REGDATE"/>
+	 <result property="line_img" column="LINE_IMG"/>
+	</resultMap>
+
+	
+	
+	<sql id="select-all2">
+		select * from board
+	</sql>
+	<sql id="where-line_num2">
+	   where line_num = #line_num# 
+	</sql>
+	
+	
+	<!-- select 쿼리문 -->
+	<select id="selectAll2" resultMap="boardRes" parameterClass="int">
+		<include refid="select-all2"/> 
+		 where line_num = #line_num# 
+		 order by board_num desc
+	</select>
+	<!-- 상세보기 쿼리문 -->
+	<select id="selectView" resultMap="boardRes" parameterClass="int">
+		select * from board
+		where board_num = #board_num# 
+	</select>
+	
+	
+	<!-- 검색용 select 쿼리문  글쓴이-->
+	<select id="SearchW" resultMap="boardRes" parameterClass="board">
+		 select * from board
+	 	 where line_num = #line_num#
+	     and 
+	     board_author like #board_subject#
+	     order by board_num desc
+	 </select>
+	  	<!-- 검색용 select 쿼리문  글내용-->
+	 <select id="SearchC" resultMap="boardRes" parameterClass="board">
+	 	select * from board
+	 	where line_num = #line_num#
+		and 
+		board_content like #board_subject#
+		order by board_num desc
+	 </select>   
+	    <!-- 검색용 select 쿼리문  글제목-->
+	  <select id="SearchS" resultMap="boardRes" parameterClass="board">
+	 	select * from board where line_num = #line_num#
+		and 
+	    board_subject like #board_subject#
+		order by board_num desc
+	 </select>   
+	 <!--    게시물 last no 찾기 -->
+	 <select id="lastboardNum" resultClass="board" parameterClass="int">
+	    select max(board_num) as board_num from board
+	 </select>
+	<!-- line info select  -->
+    <select id="lineInfo" resultMap="lineRes" parameterClass="int">
+    	select * from line
+    	where line_num = #line_num#
+    </select> 
+    <!-- boardUp select-->
+    <select id="selectUp" resultClass="int" parameterClass="boardUpDown">
+      select count(*) from board_check
+      where board_num = #board_num# and id = #id# and do_kind = 0
+    </select>
+	 <!-- boardDown select -->
+	 <select id="selectDown" resultClass="int" parameterClass="boardUpDown">
+	  select count(*) from board_check
+	  where board_num = #board_num# and id= #id# and do_kind = 1
+  	 </select>
+	 <!-- 신고확인 -->
+	 <select id="singoCount" resultClass="int" parameterClass="singo">
+	 select count(*) from singo
+	 where board_num = #board_num# and singo_reporter =#singo_reporter#
+ 	 </select>
+	<!-- 베스트 select 쿼리문 -->
+	<!-- 기부하기전 나의 닷 확인 -->
+	<select id="selectMyDotForDonation" resultClass="int" parameterClass="string">
+		select dot_sum from member where id = #id#
+	</select>
+	<!-- 댓글개수뽑기 -->
+	<select id="selectCountingCommentList" resultClass="int" parameterClass="int">
+		select count(*) from comments where board_num = #board_num#
+	</select>
+	
+	<!-- 추가부분 시작 -->
+	<select id="readcountBestList" resultMap="boardRes" parameterClass="int" >
+		select * from board where line_num = #line_num# order by board_readcount desc
+	</select>
+	
+	<select id="goodBestList" resultMap="boardRes" parameterClass="int" >
+		select * from board where line_num = #line_num# order by board_up desc
+	</select>
+	
+	<select id="donationBestList" resultMap="boardRes" parameterClass="int" >
+		select * from board where line_num = #line_num# order by board_dot desc
+	</select>
+	
+	<select id="boardNumGroupCommentsList" resultClass="int" parameterClass="int" >
+		select board_num from comments where line_num = #line_num# group by board_num  order by count(*) desc
+	</select>
+	
+	<select id="commentsBestList" resultMap="boardRes" parameterClass="int">
+		select * from board where board_num = #board_num#
+	</select>
+	
+	<select id="selectCommentsCounting" resultClass="int" parameterClass="int">
+		select count(*) from comments where board_num = #board_num#
+	</select>
+	
+	<select id="selectBoardListName" resultClass="string" parameterClass="string">
+		select name from member where id = #id#
+	</select>
+	
+	<select id="selectBoardListImg" resultClass="string" parameterClass="string">
+		select profile_img from member where id = #id#
+	</select>
+	<!-- 추가부분 끝 -->
+	
+	<select id="selectCommenterName" resultClass="string" parameterClass="string">
+		select name from member where id = #id#
+	</select>	
+	
+	<select id="selectCommenterImg" resultClass="string" parameterClass="string">
+		select profile_img from member where id = #id#
+	</select>
+
+	
+    <!-- board insert 쿼리문  -->
+     <insert id="insertBoard" parameterClass="board">
+      insert into board (LINE_NUM,BOARD_NUM,BOARD_SUBJECT,BOARD_AUTHOR,BOARD_CONTENT,BOARD_REGDATE,BOARD_UPLOAD,BOARD_UP,BOARD_DOWN,BOARD_DOT,BOARD_SINGO,BOARD_READCOUNT,BOARD_STATUS)
+      values (#line_num#,BOARD_NUM_no_seq.NEXTVAL,#board_subject#,#board_author#,#board_content#,#board_regdate#,#board_upload#,#board_up#,#board_down#,#board_dot#,#board_singo#,#board_readcount#,#board_status#)
+     </insert>
+  	<!-- board up insert 쿼리문-->
+	<insert id="boardUpInsert" parameterClass="boardUpDown">
+		insert into board_check (ID,BOARD_NUM,DO_DATE,DO_KIND)
+		values (#id#,#board_num#,#do_date#,#do_kind#)
+	</insert>
+    <!-- board down insert 쿼리문 -->
+    <insert id="boardDownInsert" parameterClass="boardUpDown">
+    	insert into board_check (ID,BOARD_NUM,DO_DATE,DO_KIND)
+    	values (#id#,#board_num#,#do_date#,#do_kind#)
+    </insert>
+    <!-- singo -->
+    <insert id="insertSingo" parameterClass="singo">
+    	insert into singo (SINGO_NUM,BOARD_NUM,SINGO_REPORTER,SINGO_BADMAN,SINGO_REASON,SINGO_REGDATE)
+    	values(SINGO_NUM_no_seq.NEXTVAL,#board_num#,#singo_reporter#,#singo_badman#,#singo_reason#,#singo_regdate#)
+    </insert> 
+    <insert id="insertDot" parameterClass="dot">
+    	insert into dot_history (DH_NUM,DH_DONATION,DH_FROM,DH_TO,DH_DATE,BOARD_NUM)
+    	values(DH_NUM_no_seq.NEXTVAL,#dh_donation#,#dh_from#,#dh_to#,#dh_date#,#board_num#)
+    
+    </insert>
+   <!-- update 쿼리문 -->
+   <update id="updateBoard" parameterClass="board">
+   	UPDATE board set board_subject = #board_subject#,
+   					 board_content = #board_content#,
+   					 board_regdate = #board_regdate#
+   					 
+   	where board_num = #board_num#
+   </update>
+   <update id="updateFile2" parameterClass="board" >
+		UPDATE board set board_upload = #board_upload#
+	    where board_num = #board_num#
+	</update>
+	<!-- 조회수 업-->
+	<update id="updateReadCount" parameterClass="board">
+		UPDATE board set board_readcount = board_readcount + 1
+		WHERE board_num = #board_num#
+	</update>
+	<!-- 추천수 업 -->
+	<update id="updateBoardUp" parameterClass="board">
+		UPDATE board set board_up = board_up + 1
+		WHERE board_num = #board_num#
+	</update> 
+	<!-- 비추천수 업 -->
+	<update id="updateBoardDown" parameterClass="board">
+		UPDATE board set board_down = board_down +1
+		WHERE board_num = #board_num#
+	</update>
+	<!-- 신고수-->
+	<update id="updateSingo" parameterClass="board">
+		UPDATE board set board_singo = board_singo + 1
+		WHERE board_num = #board_num#
+	</update> 
+	<!-- 게시물 dot 증가 -->
+	<update id="updateDotBoard" parameterClass="board">
+		UPDATE board set board_dot = board_dot + #board_dot#
+		where board_num = #board_num#
+	</update>
+	<!-- member에 update 기부 -->
+	<update id="updateMemberDot" parameterClass="memberVO">
+		UPDATE member set dot_sum = dot_sum + #dot_sum#
+		where id = #id#
+	</update>
+	
+	<!-- 멤버 닷총량 빼기 -->
+	<update id="minusMemberDot" parameterClass="memberVO">
+		UPDATE member set dot_sum = dot_sum - #dot_sum#
+		where id = #id#
+	</update>
+	<!-- 게시글 지우기 -->
+	<delete id="deleteBoard2" parameterClass="board">
+		delete from board
+		where board_num = #board_num#
+	</delete>
+	<!-- 추가부분 -->
+   <insert id="insertComment" parameterClass="comment">
+      insert into comments(line_num, 
+                        board_num, 
+                        comment_num, 
+                        comment_author, 
+                        comment_regdate, 
+                        comment_content,
+                        comment_ref, 
+                        comment_re_level, 
+                        comment_up, 
+                        comment_down, 
+                        comment_status) values(#line_num#,
+                                          #board_num#,
+                                          COMMENT_NUM_no_seq.NEXTVAL,
+                                          #comment_author#,
+                                          sysdate,
+                                          #comment_content#,
+                                          COMMENT_NUM_no_seq.CURRVAL,
+                                          #comment_re_level#,0,0,0)
+   </insert>
+   
+   <insert id="insertRecomment" parameterClass="comment">
+      insert into comments(line_num, 
+                        board_num, 
+                        comment_num, 
+                        comment_author, 
+                        comment_regdate, 
+                        comment_content,
+                        comment_ref, 
+                        comment_re_level, 
+                        comment_up, 
+                        comment_down, 
+                        comment_status) values(#line_num#,
+                                          #board_num#,
+                                          COMMENT_NUM_no_seq.NEXTVAL,
+                                          #comment_author#,
+                                          sysdate,
+                                          #comment_content#,
+                                          #comment_ref#,
+                                          #comment_re_level#,0,0,0)
+   </insert>
+  
+   
+   <select id="selectCommentList" resultMap="commentRes" parameterClass="int">
+      select * from comments where board_num = #board_num# order by comment_ref desc, comment_re_level asc
+   </select>
+   
+   <select id="selectMaxCommentLevel" resultClass="int" parameterClass="int">
+      select max(comment_re_level) from comments where comment_ref = #comment_ref#
+   </select>
+   
+   <select id="selectCountRecomment" resultClass="int" parameterClass="int">
+      select count(*) from comments where comment_ref = #comment_ref#
+   </select>
+   
+   <select id="selectCommentUpCheck" resultClass="int" parameterClass="commentCheck">
+      select count(*) from comment_check where id = #id# and comment_num = #comment_num# and do_kind = #do_kind#
+   </select>
+   
+ 
+   
+   <update id="updateCommentUp" parameterClass="int">
+      update comments set comment_up = comment_up + 1 where comment_num = #comment_num#
+   </update>
+   
+   <update id="updateCommentDown" parameterClass="int">
+      update comments set comment_down = comment_down + 1 where comment_num = #comment_num#
+   </update>
+   
+   <insert id="insertUPLog" parameterClass="commentCheck">
+      insert into comment_check values(#id#, #comment_num#, sysdate, #do_kind#)
+   </insert>
+   
+   <update id="updateCommentStatus" parameterClass="int">
+      update comments set comment_status = 1 where comment_num = #comment_num#
+   </update>
+   
+   <!-- 담아두기 -->
+   <select id="selectLike" resultClass="int" parameterClass="like_board">
+	select count(*) from like_board
+	where like_id = #like_id# and org_board_num = #org_board_num#
+	</select>
+
+	<insert id="insertLike" parameterClass="like_board">
+	      insert into like_board (LIKE_NUM,LIKE_ID,ORG_BOARD_NUM)
+	      values(LIKE_NUM_no_seq.NEXTVAL,#like_id#,#org_board_num#)
+	    
+	    </insert>
+
+	<delete id="deleteLike" parameterClass="like_board">
+	  delete from like_board
+	  where like_id = #like_id# and org_board_num = #org_board_num#
+	</delete>
+	
+	<delete id="deleteBcomments" parameterClass="int">
+      delete from comments
+      where board_num = #board_num#
+   
+   </delete>
+   
+   <delete id="deleteBoardLike" parameterClass="int">
+     delete from like_board
+     where org_board_num = #org_board_num#
+   </delete>
+  
+</sqlMap>

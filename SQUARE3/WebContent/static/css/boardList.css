@@ -1,0 +1,150 @@
+@charset "EUC-KR";
+.all{
+    margin: 0;
+    margin-top: 0px;
+    margin-right: 0px;
+    margin-bottom: 0px;
+    margin-left: 0px;
+
+} 
+
+#header{
+    position: relative;
+    width: 970px;
+    height: 60px;
+    margin: 0 auto;
+    z-index: 10000;
+    
+}
+
+#footer {
+   position : relative;
+   width : 970px;
+   height: 50px;
+   margin : 0 auto;
+   z-index: 0;
+   background-color : #999999;
+}
+
+#footer .information{
+    height : 25px;
+   width : 100px;
+   margin : 0 auto;
+   padding : 20px;
+}
+.tab {
+    overflow: hidden;
+
+}
+
+/* Style the buttons inside the tab */
+#content1 .tab button {
+    background-color: inherit;
+    float: right;
+    
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+#content1 .tab button:hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+#content1 .tab button.active {
+    background-color: #ffffff;
+}
+
+/* Style the tab content */
+#content1 .tabcontent {
+    display: none;
+    padding: 6px 20px;
+    height : 211px;
+   width : 600px;
+    margin : 0 auto;
+   border : 1px solid gray;
+   border-radius : 10px;
+   
+}
+
+#content1 .tabcontent li{
+    float: left;
+    width:  200px;
+    height: 10x;
+    border:1px solid #ccc;
+    
+
+
+}
+
+#content1 .tab{
+   width : 600px;
+   height : 100x;
+   margin : 0 auto;
+
+}
+li
+{
+overflow : hidden;
+list-style : none;
+
+}
+
+#donate {
+ display : block;
+ height : 200px;
+ width : 600px;
+ 
+ }
+
+#content1 .centerrr{
+  width: 610px;
+  margin : 0 auto;
+  
+  }
+#content2{ 
+    height:550px;
+    width: 800px;
+    margin: 20px 86px;
+    padding: 2px;
+    border: 1px solid blue;
+}
+
+
+
+#header .h11{
+   float : right;
+   height : 20px;
+   margin : 10px;
+   width : 0 20px;
+}
+
+#content2 .boardList{
+   height : 250px
+   width : 600px;
+   margin : 0 auto;
+
+}
+
+#content2 .paging{
+   height : 25px;
+   width : 100px;
+   margin : 0 auto;
+   padding : 20px;
+   
+}
+#content2 .inlinesearch{
+   
+    padding: -3px;
+    width: 200px auto;
+    margin: 35px;
+   background-color :  #999999;
+}
+
+#content2 .write{
+   float : right;
+}

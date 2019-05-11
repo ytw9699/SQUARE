@@ -1,0 +1,40 @@
+@charset "utf-8";
+/* CSS Document */
+
+.contentWrap {
+    width: 75%;
+    margin: 0 auto;
+    min-height: 750px;
+}
+
+span.resultTest {
+    font-size: 20px;
+}
+span.resultKeyword {
+    font-size: 30px;
+    color: #555;
+    font-weight: 700;
+}
+span.resultKind {
+    display: block;
+    font-weight: 600;
+    font-size: 22px;
+    margin-top: 40px;
+    margin-bottom: 10px;
+    width: 387px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #ddd;
+    color: #555;
+}
+span.resultSubtext {
+    display: block;
+    color: #6b6b6b;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+span.moreViewSpan{
+	float: right;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 40px;
+}

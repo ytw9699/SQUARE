@@ -1,0 +1,531 @@
+@charset "utf-8";
+/* CSS Document */
+
+/* 늅 */
+
+.contentWrap {
+    width: 75%;
+    margin: 0 auto;
+    border-top: 4px solid #aeaeae;
+}
+.contentHeaderWrap {
+    padding-top: 30px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+    font-size: 25px;
+    color: #555;
+}
+.contentTopWrap {
+    background-color: #f6f9fc;
+    border: 1px solid #eaeef0;
+}
+.contentTopLeft {
+    display: inline-block;
+    padding: 25px;
+}
+.contentTopRight {
+    display: inline-block;
+    float: right;
+    padding: 35px;
+    color: #aeaeae;
+    line-height: 25px;
+}
+.contentCenterWrap {
+    padding: 20px;
+    min-height: 400px;
+}
+#like_board{
+	float: right;
+    margin-left: 15px;
+    display: inline-block;
+}
+.goodDIV {
+    display: inline-block;
+    width: 115px;
+    height: 115px;
+    background-color: #12b9ff;
+    border-radius: 118px;
+    text-align: center;
+    margin-right: 30px;
+    cursor: pointer;
+}
+.badDIV {
+    display: inline-block;
+    width: 115px;
+    height: 115px;
+    background-color: #eaeaea;
+    border-radius: 118px;
+    text-align: center;
+    cursor: pointer;
+}
+.badSummaryWrap {
+    display: inline-block;
+    display: inline-block;
+    margin-left: 30px;
+    margin-bottom: 30px;
+}
+.badText{
+	color: #464646;
+}
+.GNBImg {
+    width: 50%;
+    margin: 0 auto;
+    /* border-radius: 49px; */
+    display: block;
+    margin-top: 15px;
+}
+.goodText{
+	color: white;
+}
+.contentBottomWrap {
+    /* width: 47%; */
+    margin: 0 auto;
+    margin-left: 30%;
+    margin-bottom: 30px;
+}
+.goodSummaryWrap {
+    display: inline-block;
+    margin-right: 30px;
+    margin-bottom: 30px;
+}
+span.goodSumText {
+    color: #12b9ff;
+    font-size: 40px;
+}
+span.badSumText {
+    color: #464646;
+    font-size: 40px;
+}
+/* 늅늅 */
+.donateBackGround{
+ width: 100%;
+    height: 100%;
+    position: fixed;
+    background: #383838;
+    top: 0;
+    left: 0;
+    opacity: 0.6;
+    display: none;
+}
+input.bottomButtons {
+    background-color: #e3ecef;
+    border: 1px solid #a3c1cb;
+    color: #40575f;
+    padding: 8px;
+    width: 6%;
+    font-size: 15px;
+    margin-right: 11px;
+    cursor: pointer;
+}
+.donateWrapper{
+    width: 30%;
+    /* margin: 0 auto; */
+    /* border: 15px solid #f3f3f3; */
+    position: fixed;
+    top: 25%;
+    left: 33%;
+    background-color: #fff;
+    border: 7px solid #5a5e7f;
+    box-sizing: border-box;
+    display: none;
+}
+span.donaSubject {
+    color: #2a0055;
+    display: block;
+    background-color: #f2f2f4;
+    padding: 10px;
+    font-size: 15px;
+    font-weight: 600;
+}
+span.donaText {
+    display: block;
+    color: #888;
+    font-size: 13px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 16px;
+}
+.donateSubmit{
+border: none;
+    background-color: #ff7e00;
+    color: white;
+    padding: 10px;
+    font-size: 15px;
+    margin: 25px auto;
+    width: 100px;
+    display: block;
+}
+span.mydonaText {
+    font-size: 15px;
+}
+
+.selectWrap {
+    width: 50%;
+    margin: 0 auto;
+}
+
+.donaSelect{
+    font-size: 15px;
+    font-weight: 600;
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+
+/* 도네이션끝 */
+.commentInput{
+        float: left;
+    resize: none;
+    font-size: 17px;
+    color: #555;
+    padding: 12px;
+    height: 126px;
+    width: 85%;
+    box-sizing: border-box;
+}
+.commentSubmit{
+    height: 126px;
+    border: none;
+    background-color: #b6c0c8;
+    color: white;
+    font-size: 15px;
+    width: 15%;
+    box-sizing: border-box;
+}
+.commentWrap {
+    width: 75%;
+    margin: 0 auto;
+    margin-top: 30px;
+}
+.inputWrapper {
+    width: 97%;
+    margin: 0 auto;
+    margin-top: 16px;
+    border: 15px solid #f3f3f3;
+}
+.commentWriter {
+    display: inline-block;
+    float: left;
+}
+span.commenterName {
+    color: #4e959f;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+span.commenterId {
+    color: #aeaeae;
+    font-size: 14px;
+}
+
+span.comment_regDate {
+    color: #555;
+    line-height: 30px;
+    font-size: 14px;
+}
+img.commenterProfileImg {
+    width: 100%;
+}
+.commenterImgWrap {
+    display: inline-block;
+    width: 50px;
+    float: left;
+    margin-right: 10px;
+}
+.commentContent{
+ display: inline-block;
+ width : 48%;
+ font-size : 14px;
+ line-height : 25px;
+ 
+}
+.recommentWrapper{
+   width: 70%;
+    margin: 0 auto;
+    border: 15px solid #f3f3f3;
+    position: fixed;
+    top: 40%;
+    left: 15%;
+    display: none;
+}
+.backgroundGray{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background: #383838;
+    top: 0;
+    left: 0;
+    opacity: 0.6;
+    display: none;
+}
+
+
+.recomment {
+    background-color: #ddeeff;
+    margin-left: 5%;
+}
+.deleteComment{
+float: right;
+    background: #f2f2f2;
+    border-radius: 17px;
+    border: 1px solid #b6b6b6;
+    padding: 8px;
+    transition: 0.3s;
+    cursor: pointer;
+    margin-right: 10px;
+}
+.commentGood{
+float: right;
+    width: 55px;
+    background: #f2f2f2;
+    border-radius: 17px;
+    border: 1px solid #b6b6b6;
+    padding: 8px;
+    transition: 0.3s;
+    cursor: pointer;
+    margin-right: 10px;
+}
+.commentBad{
+float: right;
+    width: 55px;
+    background: #f2f2f2;
+    border-radius: 17px;
+    border: 1px solid #b6b6b6;
+    padding: 8px;
+    transition: 0.3s;
+    cursor: pointer;
+    margin-right: 10px;
+}
+.commentGoodImg {
+    width: 20px;
+    float: left;
+}
+.commentBadImg {
+    width: 20px;
+    float: left;
+}
+span.badSum {
+    margin-left: 8px;
+    color: #ff3c00;
+}
+span.goodSum{
+   margin-left: 8px;
+   color: #12b9ff;
+}
+span.recommentSum{
+   margin-left: 8px;
+   color: #555;
+}
+.commentContentWrapper {
+    padding: 10px;
+    min-height: 50px;
+}
+.deletedComments{
+   color: red;
+}
+span.contentSubject {
+    font-size: 20px;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+.warningText {
+    text-align: center;
+    margin-top: 10%;
+    font-size: 30px;
+    color: #aeaeae;
+}
+
+
+span.contentName {
+    color: #4e959f;
+    font-size: 15px;
+}
+
+span.contentId {
+    color: #aeaeae;
+    font-size: 14px;
+}
+.listWrapper {
+    margin-top: 20px;
+    margin-bottom: 70px;
+}
+span.commentsSum {
+    color: #3e94a6;
+    font-size: 25px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+span.commentsSumText {
+    color: #010101;
+    font-size: 15px;
+}
+.buttonsWrap {
+    display: block;
+    border-top: 4px solid #dcdcdc;
+    /* width: 100%; */
+    padding: 20px;
+}
+/* 신고여기부터 */
+.singoBackGround{width: 100%;
+    height: 100%;
+    position: fixed;
+    background: #383838;
+    top: 0;
+    left: 0;
+    opacity: 0.6;
+    display: none;}
+input.singoCancel {
+    border: none;
+    background-color: #626262;
+    color: white;
+    padding: 10px;
+    font-size: 15px;
+    width: 100px;
+    margin-left: 15px;
+}
+input.singoSubmit {
+    border: none;
+    background-color: black;
+    color: white;
+    padding: 10px;
+    font-size: 15px;
+    width: 100px;
+}
+
+td.singoTD1 {
+    background-color: #f2f2f4;
+    padding: 10px;
+    width: 25%;
+    border: 1px solid #eaeef0;
+    text-align: center;
+    font-size: 15px;
+}
+td.singoTD2 {
+    border: 1px solid #eaeef0;
+}
+.singoWrapper {
+    width: 30%;
+    /* margin: 0 auto; */
+    /* border: 15px solid #f3f3f3; */
+    position: fixed;
+    top: 12%;
+    left: 33%;
+    background-color: #fff;
+    border: 7px solid #5a5e7f;
+    box-sizing: border-box;
+    display: none;
+}
+
+span.singoSubject {
+    color: #2a0055;
+    display: block;
+    background-color: #f2f2f4;
+    padding: 10px;
+    font-size: 15px;
+    font-weight: 600;
+}
+span.singoText {
+    display: block;
+    color: #888;
+    font-size: 13px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 16px;
+}
+.singoTable{
+width: 95%;
+    margin: 0 auto;
+}
+td.singoTD1.singoReason {
+    height: 200px;
+}
+.singoButtonWrap {
+    /* display: inline-block; */
+    margin: 20px auto;
+    width: 230px;
+}
+textarea.singoTextarea {
+    width: 100%;
+    height: 220px;
+    resize: none;
+    padding: 10px;
+    box-sizing: border-box;
+    border: none;
+}
+/* 신고끝 */
+hr{
+  width: 80%;
+}
+.boardheader{
+  width: 80%;
+  padding-top : 25px;
+  margin : 0px auto;
+  margin-top : 10px;
+  height : 50px;
+  font-size: 30px; 
+  font-style: normal;
+ 
+}
+.boardWrapper{
+   width: 80%;
+   margin : 0px auto;
+   padding : 10px;
+   
+}
+
+.subjectback{
+   width: 100%;
+   background : #ebebe0;   
+    height: 80px;
+    padding-left : 10px;
+    display : block;
+}
+.subject{
+   width:100%;
+   display: inline-block;
+   margin : 0 auto;
+   padding-top : 20px;
+
+}
+
+.board_authors{
+ float: left;
+ margin-top : 5px;
+}
+.board_other{
+ float:right;
+ margin-right : 10px;
+ margin-top : 5px;
+}
+
+.board_content {
+    width: 100%;
+    min-height: 400px;
+    margin: 0 auto;
+   border-bottom : 5px solid #ebebe0;
+   
+}
+
+.smallthree{
+ float: right;
+   
+}
+.three{
+    margin-top: 0px;
+    padding: 10px;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.Three{
+   margin-top: 8px;
+    width: 80%;
+    margin: 0 auto;
+    text-align: center; 
+}
+
+.like{
+ float:right;
+ margin-right:10px;
+}
+

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+<package name="board" extends="struts-default">
+<!-- 글로벌 예외 처리 화면 설정 -->
+<!-- <global-results>
+	<result name="error">/admin/pageError.jsp</result>
+</global-results>
+
+<global-exception-mappings>
+	<exception-mapping result="error" exception="java.lang.Exception"/>
+</global-exception-mappings>
+			 -->
+<!-- 회원목록 리스트 가져오기  -->
+<action name="memberList" class="admin.memberList">
+<result>/admin/memberList.jsp</result>
+</action>
+<!-- 회원 정보 상세보기 -->
+<action name="memberDetail" class="admin.memberDetail">
+<result>/admin/memberDetail.jsp</result>
+</action>
+<!-- 계정 복구 하기 -->
+<action name="restoringMember" class="admin.memberStatus">
+<result>/admin/status.jsp</result>
+</action>
+<!-- 게시글 제한 -->
+<action name="limitingBoard" class="admin.memberStatus">
+<result>/admin/status.jsp</result>
+</action>
+<!-- 로그인 제한 -->
+<action name="limitingLogin" class="admin.memberStatus">
+<result>/admin/status.jsp</result>
+</action>
+<!-- 작성자 글목록 조회 -->
+<action name="memberArticles" class="admin.memberArticles">
+<result>/admin/memberArticlesList.jsp</result>
+</action>
+<!-- 회원 작성글 상세보기 이건 인쿠르트 해올거라 주석처리-->
+<!-- <action name="viewAction" class="board.viewAction">
+	 <result>/board/boardView.jsp</result>
+</action> -->
+<!-- 복구하기 or 블라인드 처리 후 작성자 글목록보기-->
+<action name="memberBlind" class="admin.memberBlind">
+	<result type="chain">memberArticles</result>
+</action>
+<!-- 충전 리스트 -->
+<action name="dotChargeList" class="payment.dotChargeList">
+	<result>/payment/dotChargeList.jsp</result>
+</action>
+<!-- 환전 리스트 -->
+<action name="dotExchangeList" class="payment.dotExchangeList">
+	<result>/payment/dotExchangeList.jsp</result>
+</action>
+<!-- 충전상태 대기중 or 승인 완료 -->
+<action name="grantingCharge" class="payment.grantingCharge">
+	<result type="chain">dotChargeList</result>
+</action>
+<!-- 환전상태 대기중 or 승인 완료 -->
+<action name="grantingExchange" class="payment.grantingExchange">
+	<result type="chain">dotExchangeList</result>
+</action>
+<!-- 충전 일괄 승인 처리 -->
+<action name="dotGrangtAll" class="payment.dotGrangtAll">
+	<result type="chain">dotChargeList</result>
+</action>
+<!-- 환전 일괄 승인 처리 -->
+<action name="dotExGrangtAll" class="payment.dotExGrangtAll">
+	<result type="chain">dotExchangeList</result>
+</action>
+<!-- 회원특이사항 입력 or수정 -->
+<action name="modMemberEx" class="admin.modMemberEx">
+	<result type="chain">memberDetail</result>
+</action>
+
+</package>
+
+</struts>

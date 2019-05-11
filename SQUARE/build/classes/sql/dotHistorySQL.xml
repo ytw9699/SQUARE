@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+
+<sqlMap>
+	<typeAlias alias="dotHistory" type="admin.dotHistoryVO"/>
+	
+	<resultMap id = "dotHistoryRes" class="dotHistory">
+		<result property ="dh_num" column = "dh_num"/>
+		<result property="dh_donation" column="dh_donation"/>
+		<result property="dh_from" column="dh_from"/>
+		<result property="dh_to" column="dh_to"/>
+		<result property="dh_date" column="dh_date"/>
+		<result property="board_num" column="board_num"/>
+	</resultMap>
+	
+	<sql id="select-all-dh">
+		SELECT * FROM dot_history
+	</sql>
+	
+	<select id="selectAll-dh" resultMap="dotHistoryRes" parameterClass="int">
+		<include refid="select-all-dh"/>
+		ORDER BY dh_num DESC
+	</select>
+	
+	<select id="selectSearchID-dh" resultMap="dotHistoryRes" parameterClass="string">
+		<include refid="select-all-dh" />
+		 WHERE dh_from like #searchKeyword#
+		 ORDER BY dh_num DESC
+	</select>
+	
+	<select id="selectSearchID-dh2" resultMap="dotHistoryRes" parameterClass="string">
+		<include refid="select-all-dh" />
+		 WHERE dh_to like #searchKeyword#
+		 ORDER BY dh_num DESC
+	</select>
+	
+</sqlMap>

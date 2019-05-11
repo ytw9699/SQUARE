@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+
+<sqlMap>
+	
+	<typeAlias alias="member" type="main.memberVO"/>
+	<typeAlias alias="lineDTO" type="main.LineDTO"/>
+	<typeAlias alias="charge" type="mypage.chargeVO"/>
+	<typeAlias alias="exchange" type="mypage.exchangeVO"/>
+	<typeAlias alias="line" type="main.lineVO"/>
+	<typeAlias alias="boardVO" type="memberSearch.searchboardVO"/>
+	<typeAlias alias="commentVO" type="memberSearch.searchcommentVO"/>
+	<typeAlias alias="chargeHistoryVO" type="mypage.chargeHistoryVO"/>
+	<typeAlias alias="exchangeHistoryVO" type="mypage.exchangeHistoryVO"/>
+	<typeAlias alias="donationVO" type="mypage.donationVO"/>
+	<typeAlias alias="likedBoardVO" type="board.like_boardVO"/>
+	
+	<resultMap class="member" id="memberRes">
+		<result property="id" column="id"/>
+		<result property="password" column="password"/>
+		<result property="name" column="name"/>
+		<result property="email" column="email"/>
+		<result property="address" column="address"/>
+		<result property="zipcode" column="zipcode"/>
+		<result property="profile_img" column="profile_img"/>
+		<result property="jumin" column="jumin"/>
+		<result property="phone_num" column="phone_num"/>
+		<result property="status" column="status"/>
+		<result property="reg_date" column="reg_date"/>
+		<result property="account" column="account"/>
+		<result property="dot_sum" column="dot_sum"/>
+		<result property="authority" column="authority"/>
+	</resultMap>
+	<resultMap class="lineDTO" id="lineDTOres">
+		<result property="line_num" column="line_num"/>
+		<result property="board_num" column="board_num"/>
+		<result property="board_subject" column="board_subject"/>
+		<result property="r" column="r" />
+	</resultMap>
+	<resultMap class="line" id="lineRes">
+		<result property="line_num" column="line_num"/>
+		<result property="line_subject" column="line_subject"/>
+		<result property="line_regdate" column="line_regdate"/>
+		<result property="line_img" column="line_img"/>
+	</resultMap>
+	<resultMap class="boardVO" id="boardRes">
+      <result property="line_num" column="line_num"/>
+      <result property="board_num" column="board_num"/>
+      <result property="board_subject" column="board_subject"/>
+      <result property="board_author" column="board_author"/> 
+      <result property="board_content" column="board_content"/>
+      <result property="board_regdate" column="board_regdate"/>
+      <result property="board_upload" column="board_upload"/>
+      <result property="board_up" column="board_up"/>
+      <result property="board_down" column="board_down"/>
+       <result property="board_dot" column="board_dot"/>
+      <result property="board_singo" column="board_singo"/>
+      <result property="board_readcount" column="board_readcount"/>
+      <result property="board_status" column="board_status"/>
+   </resultMap>
+	<resultMap class="commentVO" id="commentRes">
+      <result property="line_num" column="line_num"/>
+      <result property="board_num" column="board_num"/>
+      <result property="comment_num" column="comment_num"/>
+      <result property="comment_author" column="comment_author"/>
+      <result property="comment_content" column="comment_content"/>
+      <result property="comment_ref" column="comment_ref"/>
+      <result property="comment_re_level" column="comment_re_level"/>
+      <result property="comment_up" column="comment_up"/>
+      <result property="comment_down" column="comment_down"/>
+      <result property="comment_status" column="comment_status"/>
+      <result property="comment_regdate" column="comment_regdate"/>
+   </resultMap>
+   <resultMap class="chargeHistoryVO" id="chargeHistoryRes">
+   		<result property="dc_num" column="dc_num"/>
+   		<result property="dc_id" column="dc_id"/>
+   		<result property="dc_value" column="dc_value"/>
+   		<result property="dc_status" column="dc_status"/>
+   		<result property="dc_date" column="dc_date"/>
+   		<result property="dc_dated" column="dc_dated"/>
+   </resultMap>
+   <resultMap class="exchangeHistoryVO" id="exchangeHistoryRes">
+   		<result property="de_num" column="de_num"/>
+   		<result property="de_id" column="de_id"/>
+   		<result property="de_value" column="de_value"/>
+   		<result property="de_status" column="de_status"/>
+   		<result property="de_date" column="de_date"/>
+   		<result property="de_dated" column="de_dated"/>
+   </resultMap>
+   <resultMap class="donationVO" id="donationRes">
+   		<result property="dh_num" column="dh_num" />
+   		<result property="dh_donation" column="dh_donation" />
+   		<result property="dh_from" column="dh_from" />
+   		<result property="dh_to" column="dh_to" />
+   		<result property="dh_date" column="dh_date" />
+   		<result property="board_num" column="board_num" />
+   </resultMap>
+
+	<!-- 메인리스트 테스트 -->
+	<select id="mainList" resultClass="int">
+		SELECT LINE_NUM FROM BOARD GROUP BY LINE_NUM ORDER BY COUNT(*) DESC
+	</select>
+	<select id="hotLine" resultMap="lineRes" parameterClass="int">
+		select * from line where line_num = #line_num#
+	</select>
+	<select id="hotLineSum" resultClass="int" parameterClass="int">
+		select count(*) from board where line_num = #line_num#
+	</select>
+	<select id="subList" resultMap="lineDTOres" parameterClass="int">
+		select r, line_num, board_num, board_subject from(
+		select rownum r, line_num, board_num, board_subject from(
+		select line_num, board_num, board_subject from board where line_num = #line_num# order by board_num desc) order by board_num desc) where r &lt; 6
+	</select>
+	<select id="subListName" resultClass="string" parameterClass="int">
+		select line_subject from line where line_num = #line_num#
+	</select>
+	<select id="headerLineList" resultClass="line">
+		select * from line
+	</select>
+	
+	<select id="myBoardSum" resultClass="int" parameterClass="string">
+		select count(*) from board where board_author = #board_author#
+	</select>
+	<select id="myCommentSum" resultClass="int" parameterClass="string">
+		select count(*) from comments where comment_author = #comment_author#
+	</select>
+	<select id="myLikeSum" resultClass="int" parameterClass="string">
+		select count(*) from like_board where like_id = #like_id#
+	</select>
+	
+	<!-- select -->
+	<select id="userCheckID" resultClass="int" parameterClass="member">
+		SELECT count(*) FROM MEMBER WHERE id = #id# and password = #password#
+	</select>
+	
+	<select id="userStatusCheck" resultClass="int" parameterClass="member">
+		SELECT status FROM MEMBER WHERE id = #id#
+	</select>
+	
+	<select id="emailExistCheck" resultClass="int" parameterClass="member">
+		SELECT count(*) FROM MEMBER WHERE id = #id# and email = #email#
+	</select>
+	
+	<select id="findID" resultClass="string" parameterClass="member">
+		SELECT id FROM MEMBER WHERE name = #name# AND email = #email#
+	</select>
+	
+	<select id="memberOne" resultClass="member" parameterClass="string">
+		SELECT * FROM MEMBER WHERE id = #id#
+	</select>
+	
+	<select id="exchangeReqExist" resultClass="int" parameterClass="string">
+		SELECT COUNT(*) FROM DOT_EXCHANGE WHERE de_id = #id# and de_status = 0
+	</select>
+	
+	<select id="chargeReqExist" resultClass="int" parameterClass="string">
+		SELECT COUNT(*) FROM DOT_CHARGE WHERE dc_id = #id# and dc_status = 0
+	</select>
+	
+	<select id="boardSubjectList" resultMap="boardRes" parameterClass="string">
+		<!-- select r, line_num, board_num, board_subject, board_author, board_content, board_regdate, 
+board_upload, board_up, board_down, board_dot, board_singo, board_readcount, board_status from
+(select rownum r, board_num, line_num, board_subject, board_author, board_content, board_regdate, 
+board_upload, board_up, board_down, board_dot, board_singo, board_readcount, board_status from
+(select * from board where board_subject like #keyword# order by board_regdate) order by board_regdate) where r &lt; 6 -->
+	select * from board where board_subject like #keyword# order by board_regdate desc
+	</select>
+	
+	<select id="boardContentList" resultMap="boardRes" parameterClass="string">
+		<!-- select r, line_num, board_num, board_subject, board_author, board_content, board_regdate, 
+board_upload, board_up, board_down, board_dot, board_singo, board_readcount, board_status from
+(select rownum r, board_num, line_num, board_subject, board_author, board_content, board_regdate, 
+board_upload, board_up, board_down, board_dot, board_singo, board_readcount, board_status from
+(select * from board where board_content like #keyword# order by board_regdate) order by board_regdate) where r &lt; 6 -->
+	select * from board where board_content like #keyword# order by board_regdate desc
+	</select>
+	
+	<select id="commentContentList" resultMap="commentRes" parameterClass="string">
+		select * from comments where comment_content like #comment_content# order by comment_regdate desc
+	</select>
+	
+	<select id="boardWriterList" resultMap="boardRes" parameterClass="string">
+		select * from board where board_author like #board_author#
+	</select>
+	
+	<select id="commentWriterList" resultMap="commentRes" parameterClass="string">
+		select * from comments where comment_author like #comment_author#
+	</select>
+	
+	<select id="selectLineSubjectForSearch" resultClass="string" parameterClass="int">
+		select line_subject from line where line_num = #line_num#
+	</select>
+	
+	<select id="selectMyChargedList" resultMap="chargeHistoryRes" parameterClass="string">
+		select * from dot_charge where dc_id = #dc_id# order by dc_status asc
+	</select>
+	
+	<select id="selectMyExchangedList" resultMap="exchangeHistoryRes" parameterClass="string">
+		select * from dot_exchange where de_id = #de_id# order by de_status asc
+	</select>
+	
+	<select id="selectMyGiveList" resultMap="donationRes" parameterClass="string">
+		select * from dot_history where dh_from = #dh_from# order by dh_date
+	</select>
+	
+	<select id="selectMyTakeList" resultMap="donationRes" parameterClass="string">
+		select * from dot_history where dh_to = #dh_to# order by dh_date
+	</select>
+
+	<select id="selectMyPage_boardList" resultMap="boardRes" parameterClass="string">
+		select * from board where board_author = #board_author# order by board_regdate
+	</select>
+	
+	<select id="selectMyPage_commentList" resultMap="commentRes" parameterClass="string">
+		select * from comments where comment_author = #comment_author# order by comment_regdate
+	</select>
+	
+	<select id="selectMyPage_likedList" resultClass="likedBoardVO" parameterClass="string">
+		select * from like_board where like_id = #like_id#
+	</select>
+	
+	<select id="selectMyPage_likedBoardList" resultMap="boardRes" parameterClass="int">
+		select * from board where board_num = #board_num#
+	</select>
+	
+	<select id="selectMyPageCommentCounting" resultClass="int" parameterClass="int">
+		select count(*) from comments where board_num = #board_num#
+	</select>
+	
+	<select id="selectMyPageLineName" resultClass="string" parameterClass="int">
+		select line_subject from line where line_num = #line_num#
+	</select>
+	
+	<select id="selectCheckJoinId" resultClass="int" parameterClass="string">
+		select count(*) from member where id = #id#
+	</select>
+	
+	<select id="selectMoreViewLineName" resultClass="string" parameterClass="int">
+		select line_subject from line where line_num = #line_num#	
+	</select>
+	
+	<!-- insert -->
+	<insert id="memberJoin" parameterClass="member">
+		INSERT INTO MEMBER ( ID,
+							PASSWORD,
+							NAME,
+							EMAIL,
+							ADDRESS,
+							ZIPCODE,
+							ACCOUNT,
+							JUMIN,
+							PHONE_NUM,
+							REG_DATE ) VALUES ( #id#,
+												#password#,
+												#name#,
+												#email#,
+												#address#,
+												#zipcode#,
+												#account#,
+												#jumin#,
+												#phone_num#,
+												sysdate)
+	</insert>
+	
+	<insert id="chargeRequest" parameterClass="charge">
+		INSERT INTO DOT_CHARGE(dc_num, dc_id, dc_value, dc_date) VALUES(DC_NUM_no_seq.NEXTVAL, #dc_id#, #dc_value#, sysdate)
+	</insert>
+	
+	<insert id="exchangeRequest" parameterClass="exchange">
+		INSERT INTO DOT_EXCHANGE(de_num, de_id, de_value, de_date) VALUES(DE_NUM_no_seq.NEXTVAL, #de_id#, #de_value#, sysdate)
+	</insert>
+	
+	<!-- update -->
+	<update id="passwordChange" parameterClass="member">
+		UPDATE MEMBER SET password = #password# WHERE id = #id#
+	</update>
+	
+	<update id="updateMyInfo" parameterClass="member">
+		UPDATE MEMBER SET email = #email#,
+							name = #name#,
+							phone_num = #phone_num#,
+							zipcode = #zipcode#,
+							address = #address#,
+							account = #account# where id = #id#
+	</update>
+	
+	<update id="updateMyProfile" parameterClass="member">
+		UPDATE MEMBER SET profile_img = #profile_img# WHERE id = #id#
+	</update>
+	
+	<update id="updateMyProfileDefault" parameterClass="string">
+		UPDATE MEMBER SET profile_img = '0' WHERE id = #id#
+	</update>
+	<!-- delete -->
+	
+	
+</sqlMap>

@@ -1,0 +1,45 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+
+td {
+    text-align: center;
+    padding: 10px;
+}
+.contentWrap {
+    width: 75%;
+    margin: 0 auto;
+    margin-top: 30px;
+    min-height: 700px;
+}
+span.subjectSum {
+    color: #e9281d;
+    font-weight: 600;
+}
+.topTableSubjectTD{
+	width: 200px;
+    background-color: #eaeff2;
+    padding: 10px;
+}
+.bottomTable{
+	width: 100%;
+    border-top: 4px solid #373f52;
+}
+td.bottomSubject {
+    text-align: center;
+    background-color: #f2f2f4;
+    color: #555555;
+    padding: 8px;
+    font-weight: 600;
+}
+input.inputb {
+    background-color: #5e6c84;
+    border: none;
+    color: white;
+    padding: 8px;
+    border-radius: 7px;
+}
+.bottomTableBS{
+	text-align: left;
+}

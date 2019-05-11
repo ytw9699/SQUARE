@@ -1,0 +1,71 @@
+@charset "utf-8";
+/* CSS Document */
+td {
+   text-align: center;
+    padding: 10px;
+}
+.contentWrap {
+    width: 75%;
+    margin: 0 auto;
+    margin-top: 20px;
+    min-height: 700px;
+}
+a.anchorButton {
+    background-color: #e3ecef;
+    border: 1px solid #a3c1cb;
+    color: #40575f;
+    width: 120px;
+    font-size: 15px;
+    display: inline-block;
+    text-align: center;
+    padding: 6px;
+}
+span.anchorSummary {
+    font-size: 14px;
+    color: #c80f3b;
+    font-weight: 600;
+}
+
+.dc_searchWrap {
+    display: block;
+    padding: 10px;
+    padding-left: 0;
+}
+.dc_selectBox{
+	float: left;
+    font-size: 14px;
+    padding: 5px;
+}
+
+.dc_input{
+    /* width: 80px; */
+    float: left;
+    font-size: 14px;
+    padding: 5px;
+    margin-left: 10px;
+}
+
+.dc_submit{
+    border: none;
+    background-color: #5e6c84;
+    color: white;
+    padding: 6px;
+    width: 100px;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+.bottomTable{
+	width: 100%;
+    margin-top: 30px;
+    border-top: 4px solid #373f52;
+}
+
+.OKbutton{
+    background-color: #5e6c84;
+    color: white;
+    border: none;
+    padding: 6px;
+    width: 80px;
+    border-radius: 7px;
+    margin-left: 12px;
+}

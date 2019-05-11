@@ -1,0 +1,89 @@
+@charset "utf-8";
+/* CSS Document */
+
+.event {
+    width: 75%;
+    margin: 0 auto;
+    margin-top: 70px;
+    min-height: 650px;
+}
+
+table {
+    width: 100%;
+    border-top: 5px solid #373f52;
+}
+.singoArticleA:hover{
+	text-decoration: underline;
+}
+td.tableSubject {
+    text-align: center;
+    background-color: #f2f2f4;
+    box-sizing: border-box;
+    padding: 8px;
+    color: #555;
+    font-weight: 600;
+}
+td {
+    text-align: center;
+    color: #555;
+}
+.lineListTD:hover{
+	background-color: #ddd;
+}
+.lineListTD{
+	cursor: pointer;
+	width: 60%;
+}
+.dotListTR{
+	line-height: 40px;
+}
+.reportListTR{
+	line-height: 40px;
+}
+input.inputb {
+    border: none;
+    background-color: #5e6c84;
+    color: white;
+    padding: 6px;
+    border-radius: 4px;
+}
+
+span.blindNO {
+    color: #37c537;
+}
+
+span.blindCannot {
+    color: #9e9e9e;
+    font-size: 14px;
+}
+td.blindStatus {
+    width: 110px;
+}
+span.blindOK {
+    color: red;
+}
+
+input.inputb.lineAdd {
+    padding: 10px;
+    font-size: 15px;
+    width: 13%;
+}
+
+input.inputb.searchButton {
+    font-size: 12px;
+}
+.selectBox{
+	padding: 5px;
+    font-size: 14px;
+}
+.lineDeatilButtonWrap {
+    text-align: center;
+    padding-top: 3%;
+}
+input.inputb.lineDetailButton {
+    padding: 10px;
+    font-size: 15px;
+    width: 7%;
+    margin-left: 15px;
+}
+    

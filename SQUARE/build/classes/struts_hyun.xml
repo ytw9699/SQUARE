@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	
+	<package name="square_main" extends="struts-default">
+		
+		<action name="main" class="main.mainAction">
+			
+			<result name="success">/main/main.jsp</result>
+			<result name="login">/main/main_login.jsp</result>
+			
+		</action>
+		
+		<action name="emailer" class="main.Emailer">
+			
+			<result name="success">/main/alert/mailSendingSuccess.jsp</result>
+			<result name="error">/main/alert/doNotExistEmail.jsp</result>
+		</action>
+		
+		<action name="joinForm" class="main.join" method="form">
+			<result>/main/joinForm.jsp</result>
+		</action> 
+		
+		<action name="welcomeSQUARE" class="main.welcomeSQUARE">
+			<result>/main/joinSuccess.jsp</result>
+		</action>
+		
+		<action name="login" class="main.login">
+			<result name="login">/main/alert/loginFailed.jsp</result>
+			<result name="error">/main/alert/noAccessedAcount.jsp</result>
+			<result name="success" type="redirect-action">
+				<param name="actionName">main.action</param>
+			</result>
+		</action>
+		
+		<action name="logout" class="main.logout">
+			<result type="redirect-action">
+				<param name="actionName">main.action</param>
+			</result>
+		</action>
+		
+		<action name="passChange" class="main.passChange" method="form">
+			<result>/main/passChangeForm.jsp</result>
+		</action>
+		
+		<action name="passChangePro" class="main.passChange" method="passChangePro">
+			<result>/main/alert/passwordChangeSuccess.jsp</result>
+		</action>
+		
+		<action name="findID" class="main.findID">
+			<result name="success">/main/foundResultID.jsp</result>
+			<result name="error">/main/alert/cannotFindId.jsp</result>
+		</action>
+		
+		<action name="checkJoinID" class="main.checkID">
+			<result>/main/checkID.jsp</result>
+		</action>
+		
+		<action name="my" class="mypage.mypageAction" method="mainForm">
+			<result name="success">/mypage/mypage_main.jsp</result>
+			<result name="login" type="redirectAction">
+				<param name="actionName">main</param>
+			</result>
+		</action>
+		
+		<action name="modMyInfomation" class="mypage.modify">
+			<result>/mypage/alert/modifyMyInfomationSuccess.jsp</result>
+		</action>
+		
+		<action name="modMyImg" class="mypage.modify" method="profile">
+			<result name="success">/mypage/alert/modifyMyProfileSuccess.jsp</result>
+			<result name="error">/mypage/alert/modifyMyProfileFail.jsp</result>
+			
+		</action>
+		
+		<action name="modMyDefaultImg" class="mypage.modify" method="profileDefault">
+			<result>/mypage/alert/modifyMyProfileSuccess.jsp</result>
+		</action>
+		
+		<action name="chargeReq" class="mypage.dotAction" method="charge">
+			<result>/mypage/alert/chargeRequestSuccess.jsp</result>
+			<result name="error">/mypage/alert/chargeFail.jsp</result>
+		</action>
+		
+		<action name="exchangeReq" class="mypage.dotAction" method="exchange">
+			<result>/mypage/alert/exchangeRequestSuccess.jsp</result>
+			<result name="error">/mypage/alert/exchangeFail.jsp</result>
+		</action>
+		
+		<action name="memberSearch" class="memberSearch.memberSearch">
+			<result>/memberSearch/memberSearchResult.jsp</result>
+		</action>
+		
+		<action name="memberSearchMoreView" class="memberSearch.moreView">
+			<result>/memberSearch/memberSearchResultMoreView.jsp</result>
+		</action>
+		
+		<action name="adminMain" class="admin.adminMainFormAction">
+			<result>/admin/adminMainForm.jsp</result>
+		</action>
+		
+		<action name="myDotPayForm" class="mypage.myPayHistory" method="myDotPayForm">
+			<result>/mypage/mypage_mypayhistory.jsp</result>
+		</action>
+		
+		<action name="myDonationHistoryForm" class="mypage.myDonateHistory" >
+			<result>/mypage/mypage_mydonationhistory.jsp</result>
+		</action>
+		
+		<action name="myPage_myBoardList" class="mypage.myLists" method="myBoardList">
+			<result>/mypage/myBoardList.jsp</result>
+		</action>
+		
+		<action name="myPage_myCommentList" class="mypage.myLists" method="myCommentList">
+			<result>/mypage/myCommentList.jsp</result>
+		</action>
+		
+		<action name="myPage_myLikedList" class="mypage.myLists" method="myLikedList">
+			<result>/mypage/myLikedList.jsp</result>
+		</action>
+		
+		<action name="newFetch" class="mypage.fetch">
+			<result>/myapge/fetchFile</result>
+		</action>
+		
+	</package>
+	
+</struts>

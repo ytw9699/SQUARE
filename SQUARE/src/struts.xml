@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+    
+    <struts>
+    	<constant name = "struts.devMode" value = "true" />
+    	<constant name="struts.i18n.encoding" value="euc-kr" />
+    	
+    	<!-- 바이트기준 104857600 == 100mb -->
+    	<constant name="struts.multipart.maxSize" value="104857600" />
+    	
+    	<include file="struts_hyun.xml" />
+    	<include file="struts_yeh.xml" />
+    	<include file="struts_tae.xml" />
+    	<include file="lineList.xml"/> 
+    	<include file="singoList.xml"/>
+    	<include file="dotHistory.xml"/>
+    	<!-- 
+    	<include file="struts.스트럿츠xml파일이름.xml" />
+		<include file="struts.스트럿츠xml파일이름.xml" />
+		<include file="struts.스트럿츠xml파일이름.xml" /> -->
+    
+    </struts>

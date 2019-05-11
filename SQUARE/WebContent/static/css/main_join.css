@@ -1,0 +1,77 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+html{height:100%;}
+body{/* overflow:hidden; */ margin:0;}
+	#container {
+	background-color: red;
+	position: relative;
+	left: 0;
+	width: 10000px;
+	top: 0;
+	height: 100%;
+}
+#c1{width:1200px; height:100%; float:left; background-color: white; padding: 50px;}
+#c2{width:1200px; height:100%; float:left; background-color: white; padding: 50px;}
+#c3{width:1200px; height:100%; float:left; background-color: white; padding: 50px;}
+#c4{width:1200px; height:100%; float:left; background-color: white; padding: 50px;}
+#viewport{width: 400px; height: 800px; overflow: hidden; margin: 0 auto; margin-top: 5%; margin-bottom: 5%; border-radius: 10px;}
+#all{height: 100%; position: fixed; top: 0;}
+.innerContent{width: 300px;}
+.paragraph{width: 260px; margin: 0 auto;}
+.joinLogo{
+	width: 200px;
+    margin-left: 30px;
+    display: block;
+}
+.welcomeText{
+	color: #747474;
+    font-size: 18px;
+    margin-top: 20px;
+    display: block;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+input.joinInput {
+    padding: 10px;
+    display: block;
+    margin-bottom: 8px;
+    width: 230px;
+    border-radius: 4px;
+    border: 1px solid #aeaeae;
+}
+
+input.joinOK {
+    background-color: #e3ecef;
+    border: 1px solid #a3c1cb;
+    color: #40575f;
+    padding: 6px;
+    width: 230px;
+    border-radius: 7px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+input.joinCancel {
+    background-color: white;
+    border: 1px solid #a3c1cb;
+    color: #40575f;
+    padding: 6px;
+    width: 230px;
+    border-radius: 7px;
+    display: block;
+}
+.idCheckButton {
+    display: block;
+    width: 80px;
+    padding: 6px;
+    background-color: #adb7b9;
+    color: white;
+    text-align: center;
+    font-size: 15px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    border: none;
+}

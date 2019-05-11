@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	
+
+	<package name="boardList" extends="struts-default">
+		
+		<action name="listAction" class="board.listAction">
+			<result>/board/boardList.jsp</result>
+		</action>
+		<action name="writeForm" class="board.formAction" >
+			<result>/board/boardWriteForm.jsp</result>
+	    </action>
+	    
+	     <action name="writeAction" class="board.writeAction">
+	    	<result>/board/writeSuccess.jsp</result>
+	    </action>
+	    
+	     <action name="viewAction" class="board.viewAction">
+	     	<result>/board/boardView.jsp</result>
+	     </action>
+	     <action name="deleteAction" class="board.deleteAction">
+	     	<result>/board/boardDelete.jsp</result>
+	     </action>
+	     <action name="modifyForm" class="board.modifyFormAction">
+	     	<result>/board/boardModifyForm.jsp</result>
+	     </action>
+	     <action name="modifyAction" class="board.modifyAction">
+	     	<result>/board/modifySuccess.jsp</result>
+	     </action>
+	 	 <action name="boardUpAction" class="board.boardUpAction">
+	 	 	<result name="success">/board/boardUpSuccess.jsp</result>
+	 	 	<result name="error">/board/boardUpFail.jsp</result>
+	 	 </action>
+	 	 <action name="boardDownAction" class="board.boardDownAction">
+	 	 	<result name="success">/board/boardDownSuccess.jsp</result>
+	 	 	<result name="error">/board/boardDownFail.jsp</result>
+	 	 </action>
+	 	  <!-- 추가부분 -->
+        <action name="writeComment" class="board.commentAction">
+           <result>/board/commentWriteSuccess.jsp</result>
+        </action>
+        
+        <action name="commentUp" class="board.commentUpDownAction" method="up">
+           <result name="success">/board/commentUpSuccess.jsp</result>
+           <result name="error">/board/commentUpFail.jsp</result>
+        </action>
+        
+        <action name="commentDown" class="board.commentUpDownAction" method="down">
+           <result name="success">/board/commentDownSuccess.jsp</result>
+           <result name="error">/board/commentDownFail.jsp</result>
+        </action>
+        
+        <action name="deleteComment" class="board.commentDeleteAction">
+           <result>/board/commentDeleteSuccess.jsp</result>
+        </action>
+        <action name="singoAction" class="board.singoAction" >
+        	<result name="success">/board/singoSuccess.jsp</result>
+        	<result name="error">/board/singoFail.jsp</result>
+        </action>
+        <action name="donateAction" class="board.donateAction">
+        	<result name="success">/board/donateSuccess.jsp</result>
+        	<result name="error">/board/donateFail.jsp</result>
+        </action>
+        
+        <action name="like_boardAction" class="board.like_boardAction">
+      		<result name="success">/board/fullstar.jsp</result>
+      		<result name="error">/board/emptystar.jsp</result>
+      	</action>
+	</package>
+	
+</struts>

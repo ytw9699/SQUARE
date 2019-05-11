@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+	"http://struts.apache.org/dtds/struts-2.0.dtd">
+	
+<struts>
+	
+	<package name="lineList" extends="struts-default">
+	
+		
+		<action name="lineList" class="admin.line" method="list">
+			<result>/admin/lineList.jsp</result>
+		</action>
+		
+		
+		<action name="lineCreateForm" class="admin.line" method="form">
+			<result>/admin/lineCreateForm.jsp</result>
+		</action>
+	
+		<action name="lineCreate" class="admin.line" method="create">
+			<result type="redirect-action">
+				<param name="actionName">lineList</param>
+			</result>
+		</action>
+		
+		<action name="lineDetail" class="admin.line" method="detail">
+			<result>/admin/lineDetail.jsp</result>
+		</action>
+	
+		<action name="lineModForm" class="admin.line" method="modForm">
+			<result>/admin/lineModForm.jsp</result>
+		</action>
+		
+		<action name="lineModify" class="admin.line" method="modify">
+			<result type="chain">
+				<param name="actionName">lineDetail
+				</param>
+			</result>
+		</action>
+		
+		<action name="lineDelete" class="admin.line" method="delete">
+			<result type="chain">
+				<param name="actionName">lineList</param>
+			</result>
+		</action>
+		
+<!-- 		<action name="reportList" class="admin.report" method="list"> -->
+<!-- 			<result>/admin/reportList.jsp</result> -->
+<!-- 		</action> -->
+		
+		<action name="reportSearch" class="admin.report" method="search">
+			<result>/admin/reportSearchResult.jsp</result>
+		</action>
+		
+		
+<!-- 		<action name="reportBlind" class="admin.reportBlind"> -->
+<!-- 			<result type="redirect-action"> -->
+<!-- 				<param name="actionName">reportList</param> -->
+<!-- 			</result> -->
+<!-- 		</action> -->
+		
+<!-- 		<action name="reportBlindCancel" class="admin.reportBlindCancel"> -->
+<!-- 			<result type="redirect-action"> -->
+<!-- 				<param name="actionName">reportList</param> -->
+<!-- 			</result> -->
+<!-- 		</action> -->
+		
+	</package>
+</struts>

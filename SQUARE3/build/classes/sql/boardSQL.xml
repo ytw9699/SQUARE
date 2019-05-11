@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+<sqlMap>
+
+	<typeAlias alias="member" type="admin.memberVO" />
+	<typeAlias alias="Articles" type="admin.boardVO" />
+	<typeAlias alias="modMember" type="admin.modMemberVO" />
+	<typeAlias alias="dotcharge" type="payment.dot_chargeVO" />
+	<typeAlias alias="dotExchange" type="payment.dot_exchangeVO" />
+	
+	<resultMap id="modMemberes" class="modMember">
+	<result property="id" column="id"/>
+  	<result property="ex" column="ex"/>
+	</resultMap>
+	
+	<resultMap id="dotExchanges" class="dotExchange">
+  	<result property="de_num" column="de_num"/>
+  	<result property="de_id" column="de_id"/>
+  	<result property="de_value" column="de_value"/>
+  	<result property="de_status" column="de_status"/>
+  	<result property="de_date" column="de_date"/>
+  	<result property="de_dated" column="de_dated"/>
+	</resultMap>
+
+<resultMap id="dotcharges" class="dotcharge">
+  	<result property="dc_num" column="dc_num"/>
+  	<result property="dc_id" column="dc_id"/>
+  	<result property="dc_value" column="dc_value"/>
+  	<result property="dc_status" column="dc_status"/>
+  	<result property="dc_date" column="dc_date"/>
+  	<result property="dc_dated" column="dc_dated"/>
+</resultMap>
+
+	
+<resultMap id="memberRes" class="member">
+  	<result property="id" column="id"/>
+  	<result property="email" column="email"/>
+  	<result property="name" column="name"/>
+  	<result property="password" column="password"/>
+  	<result property="address" column="address"/>
+  	<result property="zipcode" column="zipcode"/>
+  	<result property="account" column="account"/>
+  	<result property="profile_img" column="profile_img"/>
+  	<result property="jumin" column="jumin"/>
+  	<result property="phone_num" column="phone_num" />
+	<result property="status" column="status" />
+	<result property="reg_date" column="reg_date" />
+	<result property="dot_sum" column="dot_sum" />
+	<result property="authority" column="authority" />
+</resultMap>
+
+<resultMap id="ArticlesRes" class="Articles">
+  	<result property="line_num" column="line_num"/>
+  	<result property="board_num" column="board_num"/>
+  	<result property="board_subject" column="board_subject"/>
+  	<result property="board_author" column="board_author"/>
+  	<result property="board_content" column="board_content"/>
+  	<result property="board_regdate" column="board_regdate"/>
+  	<result property="board_upload" column="board_upload"/>
+  	<result property="board_up" column="board_up"/>
+  	<result property="board_down" column="board_down"/>
+  	<result property="board_dot" column="board_dot" />
+	<result property="board_singo" column="board_singo" />
+	<result property="board_readcount" column="board_readcount" />
+	<result property="board_status" column="board_status" />
+</resultMap>
+
+<!-- 최신순 회원목록 리스트 가져오기 -->
+<select id="selectmemberAll" resultMap="memberRes">
+
+	SELECT * FROM MEMBER order by reg_date desc
+	
+</select>
+<!-- 회원 id 멤버 검색로직 -->
+<select id="selectSearchId" resultMap="memberRes" parameterClass="string">
+	   												 <!-- string은 검색어 -->
+	SELECT * FROM MEMBER
+	WHERE id like #searchKeyword#
+	ORDER BY id asc
+	 
+</select>
+<!-- 회원 name 멤버 검색로직 -->
+<select id="selectSearchName" resultMap="memberRes" parameterClass="string">
+	
+	 SELECT * FROM MEMBER
+	 WHERE name like #searchKeyword#
+	 ORDER BY NAME asc
+	
+</select>
+<!-- 회원정보 상세보기 -->
+<select id="selectMemberOne" resultMap="memberRes" parameterClass="string">
+
+			SELECT * FROM MEMBER WHERE id = #id#
+			
+</select>
+<!-- 회원 작성글 상세보기 -->
+<select id="selectBoardOne" resultMap="ArticlesRes" parameterClass="int">
+
+			select * from board where board_num =#board_num#
+			
+</select>
+<!-- 계정 복구 하기 -->
+<update id="restoringMember" parameterClass="member">
+
+  		update member set status = #status# WHERE id = #id#
+  		
+</update>
+<!-- 게시글 제한 -->
+<update id="limitingBoard" parameterClass="member">
+
+  		update member set status = #status# WHERE id = #id#
+  		
+</update>
+<!-- 로그인 제한 -->
+<update id="limitingLogin" parameterClass="member">
+
+  		update member set status = #status# WHERE id = #id#
+  		
+</update>
+<!-- 작성자 글목록 조회 -->
+<select id="selectArticlesAll" resultMap="ArticlesRes" parameterClass="string">
+
+		select * from board where board_author = #board_author#
+		
+</select>
+<!-- 블라인드 복구 -->
+<update id="blindBack" parameterClass="int">
+
+  		update board set board_status = 0 where board_num = #board_num#
+  		
+</update>
+<!-- 블라인드 걸기 -->
+<update id="blinding"  parameterClass="int">
+
+  		update board set board_status = 1 where board_num = #board_num#
+  		
+</update>
+<!-- 총 환전+요청 닷 량 -->
+<select id="sumExchange" resultClass="Integer">
+
+<![CDATA[select sum(de_value) from dot_exchange where de_status = 1]]>
+
+</select>
+<!-- 총 충전+요청 닷 량 -->
+<select id="sumCharge" resultClass="Integer">
+
+<![CDATA[select sum(dc_value) from dot_charge where dc_status = 1]]>
+
+</select>
+<!-- 충전 일괄 승인 리스트가져오기 -->
+<select id="selectGrangtAll" resultMap="dotcharges">
+
+	SELECT * FROM dot_charge where dc_status = 0
+	
+</select>
+<!-- 환전 일괄 승인 리스트가져오기 -->
+<select id="selectExGrangtAll" resultMap="dotExchanges">
+
+	SELECT * FROM dot_exchange where de_status = 0
+	
+</select>
+
+<!-- 닷 충전 리스트 -->
+<select id="dotChargeList" resultMap="dotcharges">
+
+	SELECT * FROM dot_charge order by dc_status asc, dc_date desc
+	<!-- 대기중이 먼저뜨게끔 그리고 그안에서 오랜 기간이 지난 순서대로 뜨게끔  -->	
+</select>
+<!-- 닷 환전 리스트 -->
+<select id="dotExchangeList" resultMap="dotExchanges">
+
+	SELECT * FROM dot_exchange order by de_status asc, de_date desc
+	<!-- 대기중이 먼저뜨게끔 그리고 그안에서 오랜 기간이 지난 순서대로 뜨게끔  -->	
+</select>
+
+<!-- 닷 충전 완료 리스트 -->
+<select id="dotChargedList" resultMap="dotcharges">
+
+	SELECT * FROM dot_charge where dc_status = 1 order by dc_date desc
+	
+</select>
+<!-- 닷 환전 완료 리스트 -->
+<select id="dotExchangedList" resultMap="dotExchanges">
+
+	SELECT * FROM dot_exchange where de_status = 1 order by de_date desc
+	
+</select>
+<!-- 닷 충전 대기 리스트 -->
+<select id="dotWatingList" resultMap="dotcharges">
+
+	SELECT * FROM dot_charge where dc_status = 0 order by dc_date desc
+	
+</select>
+<!-- 닷 환전 대기 리스트 -->
+<select id="dotExWatingList" resultMap="dotExchanges">
+
+	SELECT * FROM dot_exchange where de_status = 0 order by de_date desc
+	
+</select>
+<!-- 닷 충전 통합 리스트 아이디 검색로직 -->
+<select id="chargeSearchId" resultMap="dotcharges" parameterClass="string">
+	   												 <!-- string은 검색어 -->
+	SELECT * FROM dot_charge
+	WHERE dc_id like #searchKeyword#
+	ORDER BY dc_id asc
+	 
+</select>
+<!-- 닷 환전 통합 리스트 아이디 검색로직 -->
+<select id="exAllSearchId" resultMap="dotExchanges" parameterClass="string">
+	   												 <!-- string은 검색어 -->
+	SELECT * FROM dot_exchange
+	WHERE de_id like #searchKeyword#
+	ORDER BY de_id asc
+	 
+</select>
+<!-- 닷 충전 요청 리스트 아이디 검색로직 -->
+<select id="requestSearchId" resultMap="dotcharges" parameterClass="string">
+	   												 <!-- string은 검색어 -->
+	SELECT * FROM dot_charge where dc_status = 0 
+	and dc_id like #searchKeyword#
+	ORDER BY dc_id asc
+	 
+</select>
+<!-- 닷 환전 요청 리스트 아이디 검색로직 -->
+<select id="exRequestSearchId" resultMap="dotExchanges" parameterClass="string">
+	   												 <!-- string은 검색어 -->
+	SELECT * FROM dot_exchange where de_status = 0 
+	and de_id like #searchKeyword#
+	ORDER BY de_id asc
+	 
+</select>
+<!-- 닷 충전 완료 리스트 아이디 검색로직 -->
+<select id="chargedSearchId" resultMap="dotcharges" parameterClass="string">
+	   												 <!-- string은 검색어 -->
+	SELECT * FROM dot_charge where dc_status = 1 
+	and dc_id like #searchKeyword#
+	ORDER BY dc_id asc
+	 
+</select>
+<!-- 닷 환전 완료 리스트 아이디 검색로직 -->
+<select id="exchangedSearchId" resultMap="dotExchanges" parameterClass="string">
+	   												 <!-- string은 검색어 -->
+	SELECT * FROM dot_exchange where de_status = 1 
+	and de_id like #searchKeyword#
+	ORDER BY de_id asc
+	 
+</select>
+
+
+<!-- 닷 충전완료 -->
+<update id="charging" parameterClass="int">
+
+  		update dot_charge set dc_status = 1 where dc_num = #dc_num#
+  		
+</update>
+<!-- 닷 환전완료 -->
+<update id="exchanging" parameterClass="int">
+
+  		update dot_exchange set de_status = 1 where de_num = #de_num#
+  		
+</update>
+<!-- 충전 승인 날짜 찍기 -->
+<update id="chargingDate" parameterClass="int">
+
+  		update dot_charge set dc_dated = sysdate where dc_num = #dc_num#
+  		
+</update>
+<!-- 환전 승인 날짜 찍기 -->
+<update id="exchangingDate" parameterClass="int">
+
+  		update dot_exchange set de_dated = sysdate where de_num = #de_num#
+  		
+</update>
+<!-- 회원의 닷 총량을 +바꿔줌 -->
+<update id="memberDot_sum" parameterClass="dotcharge">
+
+  		update member set dot_sum = dot_sum + #dc_value# where id = #dc_id#
+  		
+</update>
+<!-- 회원의 닷 총량을 -바꿔줌 -->
+<update id="memberDot_minus" parameterClass="dotExchange">
+
+  		update member set dot_sum = dot_sum - #de_value# where id = #de_id#
+  		
+</update>
+
+<!-- 닷 충전 취소 -->
+<update id="backCharging" parameterClass="int">
+
+  		update dot_charge set dc_status = 0 where dc_num = #dc_num#
+  		
+</update>
+<!-- 닷 환전 취소 -->
+<update id="backExchanging" parameterClass="int">
+
+  		update dot_exchange set de_status = 0 where de_num = #de_num#
+  		
+</update>
+
+
+<update id="memberBackDot_sum" parameterClass="dotcharge">
+
+  		update member set dot_sum = dot_sum - #dc_value# where id = #dc_id#
+  		
+</update>
+<update id="memberBackDot_minus" parameterClass="dotExchange">
+
+  		update member set dot_sum = dot_sum + #de_value# where id = #de_id#
+  		
+</update>
+
+<!-- 충전 모든 갯수 <![CDATA[ ]]>는 연산처리가능하게끔 -->
+<select id="dc_allCount" resultClass="Integer">
+
+ select count(*) from dot_charge
+
+</select>
+<!-- 환전 모든 갯수 -->
+<select id="de_allCount" resultClass="Integer">
+
+select count(*) from dot_exchange
+
+</select>
+<!-- 환전 대기중 갯수 <![CDATA[ ]]>는 연산처리가능하게끔 -->
+<select id="de_exchangingCount" resultClass="Integer">
+
+<![CDATA[select count(*) from dot_exchange where de_status < 1]]>
+
+</select>
+<!-- 환전 완료 갯수 -->
+<select id="de_exchangedCount" resultClass="Integer">
+
+<![CDATA[select count(*) from dot_exchange where de_status > 0]]>
+
+</select>
+<!-- 충전 대기중 갯수 <![CDATA[ ]]>는 연산처리가능하게끔 -->
+<select id="dc_chargingCount" resultClass="Integer">
+
+<![CDATA[select count(*) from dot_charge where dc_status < 1]]>
+
+</select>
+<!-- 충전 완료 갯수 -->
+<select id="dc_chargedCount" resultClass="Integer">
+
+<![CDATA[select count(*) from dot_charge where dc_status > 0]]>
+
+</select>
+<!-- 환전 대기중 갯수 -->
+<select id="de_statusCount" resultClass="Integer">
+
+<![CDATA[select count(*) from dot_exchange where de_status < 1]]>
+
+
+</select>
+<!-- 승인날짜 일괄 바꾸기 -->
+<update id="grantDc_dated" >
+
+  		update dot_charge set dc_dated = sysdate where dc_status = 0
+  		
+</update>
+<!-- 환전날짜 일괄 바꾸기 -->
+<update id="grantDe_dated" >
+
+  		update dot_exchange set de_dated = sysdate where de_status = 0
+  		
+</update>
+<!-- 충전 승인상태 일괄 바꾸기 -->
+<update id="greatDc_status">
+
+  update dot_charge set dc_status = 1
+  		
+</update>
+
+<!-- 환전 승인상태 일괄 바꾸기 -->
+<update id="grantDe_status">
+
+  update dot_exchange set de_status = 1
+  		
+</update>
+<!-- 회원정보 상세보기 -->
+<select id="selectEx" resultMap="modMemberes" parameterClass="string">
+			SELECT * FROM modMember WHERE id = #id#
+</select>
+<!-- 회원특이사항 입력하기-->
+  <insert id="inMemberEx" parameterClass="modMember">
+      insert into modMember(id,ex) values(#id#,#ex#)
+  </insert>
+  
+<!-- 회원특이사항 수정하기 -->
+	<update id="modMemberEx" parameterClass="modMember">
+		UPDATE modMember SET ex = #ex# where id = #id#
+	</update>
+	
+</sqlMap>
+
