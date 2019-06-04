@@ -27,10 +27,10 @@ public class commentAction extends ActionSupport implements SessionAware {
 	}
 	
 	public String execute() throws Exception{
-		//System.out.println("³Ñ¾î¿À´Â ref °¡ ¸îÀÌ³Ä¸é ,"+getComment_ref());
+		//System.out.println("ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ ref ï¿½ï¿½ ï¿½ï¿½ï¿½Ì³Ä¸ï¿½ ,"+getComment_ref());
 		currentID = (String)sessionMap.get("logonID");
 		
-		//ref0 À¸·Î ³Ñ¾î¿À¸é ¿ø±Û
+		//ref0 ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		if(getComment_ref() == 0) {
 			commentVO paramClass = new commentVO();
 			paramClass.setLine_num(getLine_num());
@@ -39,9 +39,11 @@ public class commentAction extends ActionSupport implements SessionAware {
 			paramClass.setComment_content(getComment_content());
 			paramClass.setComment_ref(getComment_ref());
 			paramClass.setComment_re_level(getComment_re_level());
-			
+			System.out.println(111);
+			System.out.println(111);
 			sqlMapper.insert("insertComment", paramClass);
-		//ref0 À¸·Î ¾È³Ñ¾î¿À¸é ´äº¯±Û
+			System.out.println(222); 
+		//ref0 ï¿½ï¿½ï¿½ï¿½ ï¿½È³Ñ¾ï¿½ï¿½ï¿½ï¿½ ï¿½äº¯ï¿½ï¿½
 		}
 		
 		if(getComment_ref() != 0) { 

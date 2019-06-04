@@ -57,7 +57,7 @@ create table comments(
 LINE_NUM NUMBER not null,--라인번호
 BOARD_NUM NUMBER not null,--게시글번호
 COMMENT_NUM	NUMBER primary key not null,--댓글번호
-COMMENT_AUTHOR NUMBER not null,
+COMMENT_AUTHOR VARCHAR2(20) not null,--작성자의 아이디
 COMMENT_REGDATE	DATE not null,
 COMMENT_CONTENT	VARCHAR2(2000) not null,
 COMMENT_REF	NUMBER not null,
@@ -66,6 +66,18 @@ COMMENT_UP NUMBER default '0',
 COMMENT_DOWN NUMBER default '0',
 COMMENT_STATUS NUMBER default '0'--0 : 정상(기본값) 1 : 삭제된 상태
 );
+
+private int line_num;
+	private int board_num;
+	private int comment_num;
+	private String comment_author;
+	private Date comment_regdate;
+	private String comment_content;
+	private int comment_ref;
+	private int comment_re_level;
+	private int comment_up;
+	private int comment_down;
+	private int comment_status;
 
 7. COMMENT_NUM 시퀀스
 create sequence COMMENT_NUM_no_seq;
