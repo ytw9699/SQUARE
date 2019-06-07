@@ -24,26 +24,26 @@ public class boardUpAction extends ActionSupport implements SessionAware{
 	Calendar today = Calendar.getInstance(); 
 	private boardUpDownVO upClass;
 	private boardUpDownVO upResClass;
-	//»ı¼ºÀÚ
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public boardUpAction() throws IOException{
 		sqlMapper = SqlMapper.getMapper();
 	}
 	
 	public String execute() throws Exception{
-		//id¿À¸é È®ÀÎÇÏ´Âlogic
+		//idï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ï´ï¿½logic
 		String currentID = (String) sessionMap.get("logonID");
 		upClass = new boardUpDownVO();
 		int board_num = Integer.parseInt(getBoard_num());
 		
-		upClass.setBoard_num(board_num); //±Û¹øÈ£ ³Ö¾îÁÖ±â
-		upClass.setDo_date(today.getTime()); //³¯Â¥ ³Ö¾îÁÖ±â
-		upClass.setId(currentID); //¾ÆÀÌµğ ³Ö¾îÁÖ±â
+		upClass.setBoard_num(board_num); //ï¿½Û¹ï¿½È£ ï¿½Ö¾ï¿½ï¿½Ö±ï¿½
+		upClass.setDo_date(today.getTime()); //ï¿½ï¿½Â¥ ï¿½Ö¾ï¿½ï¿½Ö±ï¿½
+		upClass.setId(currentID); //ï¿½ï¿½ï¿½Ìµï¿½ ï¿½Ö¾ï¿½ï¿½Ö±ï¿½
 		
-		//upÀÖ´ÂÁö Ã£±â  and id
-		int num= (Integer)sqlMapper.queryForObject("selectUp",upClass);
+		//upï¿½Ö´ï¿½ï¿½ï¿½ Ã£ï¿½ï¿½  and id
+		int num= (Integer)sqlMapper.queryForObject("selectUp",upClass);//ë¶ˆëŸ¬ì˜¤ì§ˆëª»í•¨ ì´ê±° í…Œì´ë¸”ì—†ìŒ
 	
 		if(num == 0 ) {
-			//ÃßÃµ °¡´É
+			//ï¿½ï¿½Ãµ ï¿½ï¿½ï¿½ï¿½
 			
 			upClass.setDo_kind(0);
 			sqlMapper.insert("boardUpInsert",upClass);
@@ -51,7 +51,7 @@ public class boardUpAction extends ActionSupport implements SessionAware{
 			
 			
 		}else{
-			//ÃßÃµ ¾ÈµÈ´Ù.
+			//ï¿½ï¿½Ãµ ï¿½ÈµÈ´ï¿½.
 			return ERROR;
 			
 			
